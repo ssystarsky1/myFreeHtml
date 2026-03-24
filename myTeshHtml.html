@@ -1,0 +1,70 @@
+
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WKWebView Share Test</title>
+  <style>
+    :root {
+      --bg1:#070B14;
+      --bg2:#0C1630;
+      --card:#121A2B;
+      --text:#EAF0FF;
+      --sub:#A8B2CC;
+      --btn1:#7C5CFF;
+      --btn2:#23D5FF;
+      --shadow: rgba(0,0,0,0.42);
+    }
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:radial-gradient(1000px 700px at 20% 10%, var(--bg2), var(--bg1));
+      font-family:-apple-system, BlinkMacSystemFont, "SF Pro Display", "Apple SD Gothic Neo", sans-serif;
+      color:var(--text);
+    }
+    .btn{
+      border:0;
+      cursor:pointer;
+      padding:16px 20px;
+      border-radius:16px;
+      font-size:17px;
+      font-weight:800;
+      color:#fff;
+      background:linear-gradient(90deg, var(--btn1), var(--btn2));
+      box-shadow:0 12px 26px rgba(124,92,255,0.28);
+      transition:transform .08s ease, filter .08s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn:active{ transform:scale(0.98); filter:saturate(1.1); }
+  </style>
+</head>
+<body>
+  <button id="shareBtn" class="btn">텍스트 공유하기</button>
+
+  <script>
+    async function shareText() {
+      if (!navigator.share) {
+        alert("이 브라우저는 웹 공유를 지원하지 않습니다.");
+        return;
+      }
+
+      try {
+        await navigator.share({
+          title: "텍스트 공유",
+          text: "안녕하세요. WKWebView 안에서 Web Share API로 텍스트를 공유합니다."
+        });
+      } catch (e) {
+        console.log("공유 취소 또는 실패", e);
+      }
+    }
+
+    document.getElementById("shareBtn").addEventListener("click", async () => {
+      await shareText();
+    });
+  </script>
+</body>
+</html>
