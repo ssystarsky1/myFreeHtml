@@ -47,10 +47,6 @@
 
   <script>
     async function shareText() {
-      if (!navigator.share) {
-        alert("이 브라우저는 웹 공유를 지원하지 않습니다.");
-        return;
-      }
 
       try {
         await navigator.share({
